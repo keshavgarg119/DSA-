@@ -1,5 +1,5 @@
 class MinStack {
-    private:
+/*   private:
     stack<long long>st;
     long long minElement;
 public:
@@ -36,11 +36,35 @@ public:
         if(st.top() >= minElement) 
             return st.top();
         else 
-            return minElement;
+            return minElement;  // previous minElment value is same(calculated in L 31)
     }
     
     int getMin() {
         return minElement;
+    }*/
+    private:
+    vector<pair<int,int>> s;
+public:
+    MinStack() {
+    }
+    
+    void push(int val) {
+        int min = val;
+
+        if(!s.empty()) min = s.back().second < val ? s.back().second : val;
+        s.emplace_back(pair<int,int>{val,min});
+    }
+    
+    void pop() {
+        s.pop_back();
+    }
+    
+    int top() {
+        return s.back().first;
+    }
+    
+    int getMin() {
+        return s.back().second;
     }
 };
 
