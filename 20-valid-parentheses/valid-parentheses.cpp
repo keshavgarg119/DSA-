@@ -9,15 +9,15 @@ public:
                 if (st.empty()) {
                     return false;
                 }
-                char top = st.top();
-                if ((ch == ')' && top != '(') ||
-                    (ch == '}' && top != '{') ||
-                    (ch == ']' && top != '[')) {
+               
+                if ((ch == ')' && st.top() != '(') ||
+                    (ch == '}' && st.top() != '{') ||
+                    (ch == ']' && st.top() != '[')) {
                     return false;
                 }
                 st.pop(); // Matching pair, so pop and continue
             }
         }
-        return st.empty(); // Must be empty if all brackets matched
+        return st.empty()?true:false; // Must be empty if all brackets matched
     }
 };
