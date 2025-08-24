@@ -11,8 +11,16 @@
  */
 class Solution {
 public:
+
+    bool isMirror(TreeNode* t1, TreeNode* t2) {
+        if(!t1 && !t2) return true;
+        if(!t1 || !t2 || t1->val != t2->val) return false;
+
+        return isMirror(t1->left,t2->right) && isMirror(t1->right,t2->left);
+    }
+
     bool isSymmetric(TreeNode* root) {
-        if(!root) return true;
+        /*if(!root) return true;
 
         queue<TreeNode*>q;
         q.push(root->left);
@@ -33,6 +41,11 @@ public:
             q.push(t1->right);
             q.push(t2->left);
         }
-        return true;
+        return true;*/
+
+        // recursive sol
+
+        if(!root) return true;
+        return isMirror(root->left, root->right);
     }
 };
