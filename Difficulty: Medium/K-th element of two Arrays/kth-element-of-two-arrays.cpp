@@ -1,53 +1,33 @@
 class Solution {
-  public:
-    int kthElement(vector<int>& a, vector<int>& b, int k) {
-        // code here
-        int n1 = a.size();
-        int n2 = b.size();
-        int count = 1;
-        int ans = -1;
-        int i=0, j=0;
+public:
+    int kthElement(vector<int> &a, vector<int> &b, int k) {
+        int n = a.size(), m = b.size();
         
-        while(i<n1 && j<n2) {
-            if(a[i]<b[j]) {
-                if(count == k) {
-                    return a[i];
-                }
-                else {
-                    i++;
-                    count++;
-                }
+        if(n > m) return kthElement(b, a, k);
+        
+        int low = max(0, k - m);
+        int high = min(k, n);
+        
+        while(low <= high) {
+            int cutA = (low + high) / 2;
+            int cutB = k - cutA;
+            
+            int leftA  = (cutA == 0) ? INT_MIN : a[cutA-1];
+            int leftB  = (cutB == 0) ? INT_MIN : b[cutB-1];
+            int rightA = (cutA == n) ? INT_MAX : a[cutA];
+            int rightB = (cutB == m) ? INT_MAX : b[cutB];
+            
+            if(leftA <= rightB && leftB <= rightA) {
+                return max(leftA, leftB);
+            }
+            else if(leftA > rightB) {
+                high = cutA - 1;
             }
             else {
-                if(count == k) {
-                    return b[j];
-                }
-                else {
-                    j++;
-                    count++;
-                }
+                low = cutA + 1;
             }
         }
         
-        while(i<n1) {
-            if(count == k) {
-               return a[i];
-            }
-            else {
-                i++;
-                count++;
-            }
-        }
-        while(j<n2) {
-            if(count == k) {
-                return b[j];
-            }
-            else {
-                j++;
-                count++;
-            }
-        }
-        
-        return -1;
+        return -1; 
     }
 };
