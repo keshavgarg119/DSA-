@@ -1,5 +1,6 @@
 class Solution {
 public:
+// using floydd warshall algorithm to solve this problem
     int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
         vector<pair<int,int>>adj;
         vector<vector<int>> dist(n, vector<int>(n, INT_MAX));
