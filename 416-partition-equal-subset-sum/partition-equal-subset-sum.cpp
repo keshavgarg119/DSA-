@@ -6,7 +6,7 @@ public:
         for(int i=0; i<n; i++) {
             sum += nums[i];
         }
-        if(sum%2 != 0) return false;
+        if(sum%2 != 0) return false; // here was your error
         int k = sum/2;
         vector<bool>prev(k+1,0), cur(k+1,0);
 
