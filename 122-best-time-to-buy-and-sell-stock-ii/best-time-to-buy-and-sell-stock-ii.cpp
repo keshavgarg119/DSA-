@@ -15,7 +15,7 @@ public:
 
         return dp[ind][buy] = profit;
     }*/
-    int maxProfit(vector<int>& prices) {
+    /*int maxProfit(vector<int>& prices) {
         int n = prices.size();
         //vector<vector<int>>dp(n+1, vector<int>(2,0));
         vector<int>next(2,0), cur(2,0);
@@ -36,6 +36,21 @@ public:
             next = cur;
         }
         return cur[1];
+    }*/
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        //vector<vector<int>>dp(n+1, vector<int>(2,0));
+        long aheadBuy = 0, aheadNotBuy = 0, curBuy = 0, curNotBuy = 0;
+        
+        for(int ind=n-1; ind>=0; ind--) {
+            
+            curNotBuy = max(prices[ind] + aheadBuy, 0 + aheadNotBuy);
+            curBuy = max(-prices[ind] + aheadNotBuy, 0 + aheadBuy);
+  
+            aheadBuy = curBuy;
+            aheadNotBuy = curNotBuy;  
+        }
+        return aheadBuy;
     }
     
 };
