@@ -25,11 +25,11 @@ public:
             for(int buy = 0; buy<=1; buy++) {
                 if(buy==1) {
                     cur[buy] = max(-prices[ind] + next1[0],
-                                                  0 + next1[1]);
+                                              0 + next1[1]);
                 }
                 else {
                     cur[buy] = max(prices[ind] + next2[1],
-                                                        0 + next1[0]);
+                                             0 + next1[0]);
                 }
             }
             next2 = next1;
