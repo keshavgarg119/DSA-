@@ -16,22 +16,20 @@ public:
     int maxProfit(vector<int>& prices, int fee) {
         int n = prices.size();
         //vector<vector<int>>dp(n+1, vector<int>(2,0));
-        vector<int>cur(2,0), next(2,0);
+        //vector<int>cur(2,0), next(2,0);
+
+        int aheadBuy, aheadNotBuy, curBuy, curNotBuy;
+        aheadBuy = aheadNotBuy = 0;
 
         for(int ind=n-1; ind>=0; ind--) {
-            for(int buy=0; buy<=1; buy++) {
-                if(buy==1) {
-                    cur[buy] = max(-prices[ind] + next[0],
-                                                  0 + next[1]);
-                }
-                else {
-                    cur[buy] = max(prices[ind] - fee + next[1],
-                                                       0 + next[0]);
-                }
-            }
-            next = cur;
+            curNotBuy = max(prices[ind] - fee + aheadBuy, 0 + aheadNotBuy);    
+                    
+            curBuy = max(-prices[ind] + aheadNotBuy, 0 + aheadBuy);
+         
+            aheadBuy = curBuy;
+            aheadNotBuy = curNotBuy;
         }
 
-        return cur[1];
+        return curBuy;
     }
 };
