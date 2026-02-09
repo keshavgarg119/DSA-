@@ -16,18 +16,22 @@ public:
         if (n == 0) return 0;
         if (n == 1) return nums[0];
 
-        vector<int> dp(n, 0);
+        //vector<int> dp(n, 0);
+        int prev1 = 0;
+        int prev2 = 0;
         
-        dp[0] = nums[0];
-        dp[1] = max(nums[0], nums[1]);
+        prev2 = nums[0];
+        prev1 = max(nums[0], nums[1]);
 
         for(int ind=2; ind<n; ind++) {
-            int take = nums[ind] + dp[ind-2];
-            int notTake = dp[ind-1];
+            int take = nums[ind] + prev2;
+            int notTake = prev1;
 
-            dp[ind] = max(take, notTake);
+            int cur = max(take, notTake);
+            prev2 = prev1;
+            prev1 = cur;
         }
 
-        return dp[n-1];
+        return prev1;
     }
 };
