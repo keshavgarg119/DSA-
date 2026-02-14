@@ -17,26 +17,22 @@ public:
     }*/
     double champagneTower(int poured, int query_row, int query_glass) {
 
-        vector<vector<double>> dp(query_row + 2, vector<double>(query_row + 2, 0.0));
+        //vector<vector<double>> dp(query_row + 2, vector<double>(query_row + 2, 0.0));
+        vector<double> dp(query_row + 2, 0.0);
+        dp[0] = poured;
 
-        dp[0][0] = poured;
+        for(int r = 0; r < query_row; r++) {
+            for(int c = r; c >= 0; c--) {
 
-        for(int r = 0; r <= query_row; r++) {
-            for(int c = 0; c <= r; c++) {
+                double overflow = max(0.0, (dp[c] - 1.0) / 2.0);
 
-                if(dp[r][c] > 1.0) {
-
-                    double overflow = (dp[r][c] - 1.0) / 2.0;
-
-                    dp[r+1][c]     += overflow;
-                    dp[r+1][c + 1] += overflow;
-
-                    dp[r][c] = 1.0;  
-                }
+                dp[c]     = overflow;
+                dp[c + 1] += overflow;
+ 
             }
         }
 
-        return min(1.0, dp[query_row][query_glass]);
+        return min(1.0, dp[query_glass]);
     }
 
 };
