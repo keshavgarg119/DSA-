@@ -1,16 +1,11 @@
 class Solution {
 public:
     int minimumCost(vector<int>& nums) {
-        int n = nums.size();
+        int ans = nums[0];
+        sort(nums.begin()+1 , nums.end());
+        int v = accumulate(nums.begin()+1 , nums.begin()+3 , 0);
 
-        if(n==3) {
-            return nums[0]+nums[1]+nums[2];
-        }
-        else {
-            int s = nums[0];
-            sort(nums.begin()+1, nums.end());
-            return s+nums[1]+nums[2];
-        }
+        return ans+v;
         
     }
 };
